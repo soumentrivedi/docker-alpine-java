@@ -22,5 +22,6 @@ test:
 
 deployment:
   github:
+    branch: '*'
     commands:
       - docker push soumentrivedi/openjdk8:$CIRCLE_SHA1
