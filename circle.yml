@@ -24,7 +24,4 @@ deployment:
   github:
     branch: develop
     commands:
-      - git checkout master
-      - git pull
-      - git merge develop
-      - git push origin master
+      - docker push soumentrivedi/openjdk8:$CIRCLE_SHA1
