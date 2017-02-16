@@ -16,7 +16,7 @@ test:
     - ~/${CIRCLE_PROJECT_REPONAME}/run-tests.sh
 
 deployment:
-  github:
+  release:
     branch: '*'
     commands:
       - docker push soumentrivedi/openjdk8:$CIRCLE_SHA1

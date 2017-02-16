@@ -11,7 +11,7 @@ source "${pkg_root}/../common.sh"
 # main function
 main() {
   log "${green}Building Docker image: ${DOCKER_IMAGE}:${TAG}${reset}"
-  docker build -t ${DOCKER_IMAGE}:${TAG} ${TAG}/
+  docker build --rm=false -t ${DOCKER_IMAGE}:${TAG} ${TAG}/
   if [ $? -eq 0 ]; then
     log "${green}[PASS] Build ${DOCKER_IMAGE}:${TAG}${reset}"
   else
