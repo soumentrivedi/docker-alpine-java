@@ -1,11 +1,14 @@
 machine:
   services:
     - docker
+test:
+  override:
+    - docker build --rm=false -t "soumentrivedi/openjdk8:$CIRCLE_BUILD_NUM" .
+    
 deployment:
   production:
     branch: master
     commands:
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker build --rm=false -t "soumentrivedi/openjdk8:$CIRCLE_BUILD_NUM" .
       - docker tag "soumentrivedi/openjdk8:$CIRCLE_BUILD_NUM" "soumentrivedi/openjdk8:latest"
       - docker push "soumentrivedi/openjdk8"
