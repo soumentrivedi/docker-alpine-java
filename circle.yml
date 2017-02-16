@@ -1,22 +1,10 @@
 machine:
   services:
     - docker
-  environment:
-    DOCKER_IMAGE: java
-
-dependencies:
-  cache_directories:
-    - "~/docker"
-  override:
-    - docker info
-    - mkdir -p ~/docker
-
-test:
-  override:
-    - ~/${CIRCLE_PROJECT_REPONAME}/run-tests.sh
-
 deployment:
-  release:
-    branch: '*'
+  production:
+    branch: master
     commands:
-      - docker push soumentrivedi/openjdk8:$CIRCLE_SHA1
+      - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      - docker build -t --rm=false "soumentrivedi/openjdk8:$CIRCLE_BUILD_NUM" .
+      - docker push "soumentrivedi/openjdk8:$CIRCLE_BUILD_NUM"
